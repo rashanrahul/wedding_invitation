@@ -1,0 +1,41 @@
+const SPREADSHEET_ID = "1bwDJz5lhZ9YEw9UqFMFlDezW9Lov7MawyOCmKx04UZ0";
+const RSVP_SHEET_NAME = "RSVPs";
+
+function doPost(event) {
+  try {
+    const rsvp = JSON.parse(event.postData.contents);
+    const name = cleanCell(rsvp.name, 150);
+    const attendance = String(rsvp.attendance || "");
+    const guests = Number(rsvp.guests);
+    const dietary = cleanCell(rsvp.dietary, 500);
+
+    if (!name || !["joyfully accepts", "regretfully declines"].includes(attendance)) {
+      throw new Error("A name and valid attendance selection are required.");
+    }
+    if (![1, 2].includes(guests)) {
+      throw new Error("Guest count must be 1 or 2.");
+    }
+
+    const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = spreadsheet.getSheetByName(RSVP_SHEET_NAME) || spreadsheet.insertSheet(RSVP_SHEET_NAME);
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["Submitted at", "Name", "Attendance", "Guests", "Dietary notes"]);
+    }
+    sheet.appendRow([new Date(), name, attendance, guests, dietary]);
+
+    return jsonResponse({ success: true });
+  } catch (error) {
+    console.error(error);
+    return jsonResponse({ success: false, error: String(error.message || error) });
+  }
+}
+
+function cleanCell(value, maxLength) {
+  const text = String(value || "").trim().slice(0, maxLength);
+  return /^[=+@\-]/.test(text) ? `'${text}` : text;
+}
+
+function jsonResponse(payload) {
+  return ContentService.createTextOutput(JSON.stringify(payload))
+    .setMimeType(ContentService.MimeType.JSON);
+}
