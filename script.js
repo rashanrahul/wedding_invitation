@@ -2,7 +2,7 @@ const entryScreen = document.querySelector("#entryScreen");
 const openButton = document.querySelector("#openInvitation");
 const musicToggle = document.querySelector("#musicToggle");
 const backgroundMusic = document.querySelector("#backgroundMusic");
-const RSVP_ENDPOINT = "";
+const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbxlGOv1RnK7xu76RklxP_xR2nq6B2PQpdDCf8pFyvw68-CvyuUeAvhVsgUHyC2RJ1AXOQ/exec";
 let musicPlaying = false;
 
 async function startMusic() {
