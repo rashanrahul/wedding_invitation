@@ -30,6 +30,8 @@ function stopMusic() {
 
 openButton.addEventListener("click", async () => {
   entryScreen.classList.add("is-open");
+  document.querySelector(".hero").classList.add("celebrating");
+  window.setTimeout(() => document.querySelector(".hero").classList.remove("celebrating"), 2200);
   await startMusic();
 });
 
@@ -116,9 +118,31 @@ document.querySelector("#copyLink").addEventListener("click", async () => {
   }
 });
 
+const scrollProgress = document.querySelector("#scrollProgress");
+const backToTop = document.querySelector("#backToTop");
+let scrollFrame = 0;
+
+function updateScrollControls() {
+  const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
+  scrollProgress.style.transform = `scaleX(${progress})`;
+  backToTop.classList.toggle("is-visible", window.scrollY > 650);
+  scrollFrame = 0;
+}
+
+window.addEventListener("scroll", () => {
+  if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateScrollControls);
+}, { passive: true });
+window.addEventListener("resize", updateScrollControls);
+updateScrollControls();
+
+backToTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
 document.documentElement.classList.add("motion-ready");
 const revealTargets = document.querySelectorAll(
-  ".story-content, .story-photo, .detail-item, .countdown-intro, .countdown-grid, .schedule-heading, .timeline article, .gallery-heading, .gallery-grid figure, .location-copy, .map-frame, .rsvp-intro, .rsvp-form, .feedback-inner, .share"
+  ".story-content, .story-photo, .details-heading, .detail-item, .directions-link, .countdown-intro, .countdown-grid, .schedule-heading, .timeline article, .gallery-heading, .gallery-grid figure, .location-copy, .map-frame, .rsvp-intro, .rsvp-form, .feedback-inner, .share"
 );
 
 if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
