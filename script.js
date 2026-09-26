@@ -38,7 +38,7 @@ musicToggle.addEventListener("click", () => {
   else startMusic();
 });
 
-const weddingDate = new Date("2027-01-12T14:30:00+01:00").getTime();
+const weddingDate = new Date("2027-01-12T14:30:00+05:30").getTime();
 const countdownParts = {
   days: document.querySelector("#days"),
   hours: document.querySelector("#hours"),
@@ -102,7 +102,7 @@ document.querySelector("#feedbackForm").addEventListener("submit", (event) => {
   event.currentTarget.reset();
 });
 
-const shareText = "Join Olivia & James for their wedding on 12 June 2027 at The Orangery, Kew Gardens!";
+const shareText = "Join Anuruddhe & Chethana for their wedding on 12 January 2027 at Cinnamon Lakeside Colombo!";
 const whatsappLink = document.querySelector("#whatsappShare");
 whatsappLink.href = `https://wa.me/?text=${encodeURIComponent(`${shareText} ${window.location.href}`)}`;
 
@@ -115,3 +115,26 @@ document.querySelector("#copyLink").addEventListener("click", async () => {
     message.textContent = "Copy is unavailable here. You can copy the page address from your browser.";
   }
 });
+
+document.documentElement.classList.add("motion-ready");
+const revealTargets = document.querySelectorAll(
+  ".story-content, .story-photo, .detail-item, .countdown-intro, .countdown-grid, .schedule-heading, .timeline article, .gallery-heading, .gallery-grid figure, .location-copy, .map-frame, .rsvp-intro, .rsvp-form, .feedback-inner, .share"
+);
+
+if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealTargets.forEach((target) => {
+    target.classList.add("reveal");
+    revealObserver.observe(target);
+  });
+} else {
+  revealTargets.forEach((target) => target.classList.add("is-visible"));
+}
