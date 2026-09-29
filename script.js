@@ -104,7 +104,7 @@ document.querySelector("#feedbackForm").addEventListener("submit", (event) => {
   event.currentTarget.reset();
 });
 
-const shareText = "Join Anuruddhe & Chethana for their wedding on 12 January 2027 at Cinnamon Lakeside Colombo!";
+const shareText = "Join Romeo & Juliet for their wedding on 12 January 2027 at Cinnamon Lakeside Colombo!";
 const whatsappLink = document.querySelector("#whatsappShare");
 whatsappLink.href = `https://wa.me/?text=${encodeURIComponent(`${shareText} ${window.location.href}`)}`;
 

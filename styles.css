@@ -256,7 +256,7 @@ h2 em { color: var(--rose); font-weight: 400; }
 html { scroll-padding-top: 76px; }
 body { background: #fffdf8; }
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
-.entry-screen { background: linear-gradient(130deg, rgb(30 78 58 / 80%), rgb(119 59 65 / 46%)), url("image%201.jpeg") center 43% / cover; }
+.entry-screen { background: linear-gradient(130deg, rgb(30 78 58 / 80%), rgb(119 59 65 / 46%)), url("image%205.jpeg") center 15% / cover; }
 .entry-screen::before, .entry-screen::after { position: absolute; color: #ffe4a8; font: 28px var(--display); pointer-events: none; }
 .entry-screen::before { top: 13%; left: 12%; content: "✳"; animation: float-petal 6s ease-in-out infinite; }
 .entry-screen::after { right: 13%; bottom: 14%; content: "✿"; animation: float-petal 7s -2s ease-in-out infinite; }
@@ -275,7 +275,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .site-header nav a:hover::after { transform: scaleX(1); }
 .music-bars i { background: var(--rose); }
 .hero { height: min(850px, 100svh); min-height: 660px; background: #365d47; }
-.hero-image { object-position: center 37%; animation: hero-arrive 1.4s ease-out both, hero-breathe 24s 1.4s ease-in-out infinite alternate; }
+.hero-image { object-position: center 27%; animation: hero-arrive 1.4s ease-out both, hero-breathe 24s 1.4s ease-in-out infinite alternate; }
 .hero-shade { background: linear-gradient(180deg, rgb(31 60 48 / 36%), rgb(48 50 39 / 18%) 42%, rgb(41 52 38 / 60%)), linear-gradient(90deg, rgb(44 78 54 / 24%), transparent 75%); }
 .hero-copy { padding-top: 110px; }
 .hero-copy .eyebrow { display: inline-block; padding: 10px 15px; border: 1px solid rgb(255 255 255 / 50%); border-radius: 999px; background: rgb(255 253 248 / 12%); backdrop-filter: blur(5px); }
