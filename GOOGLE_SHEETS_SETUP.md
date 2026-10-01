@@ -1,6 +1,6 @@
 # Connect RSVP to Google Sheets
 
-The RSVP form posts to a Google Apps Script web app. `Code.gs` writes each reply to a sheet tab named `RSVPs`.
+The RSVP and song suggestion forms post to a Google Apps Script web app. `Code.gs` writes replies to `RSVPs` and song suggestions to `Song Requests` (created automatically on the first suggestion).
 
 1. Open your Sheet and select **Extensions > Apps Script**.
 2. Replace the Apps Script editor contents with `Code.gs` from this folder, then save. The Sheet ID is already configured.
@@ -12,6 +12,8 @@ The RSVP form posts to a Google Apps Script web app. `Code.gs` writes each reply
    const RSVP_ENDPOINT = "https://script.google.com/macros/s/DEPLOYMENT_ID/exec";
    ```
 
-6. Publish the updated invitation. New RSVPs will append a timestamp, name, attendance, guest count, and dietary notes to the `RSVPs` tab.
+6. Publish the updated invitation. New RSVPs will append a timestamp, name, attendance, guest count, and dietary notes to the `RSVPs` tab. Song suggestions will append a timestamp and suggestion to the `Song Requests` tab.
+
+When `Code.gs` changes, update the existing web app deployment: open **Deploy > Manage deployments**, edit the web app deployment, select **New version**, and deploy. The `/exec` URL usually stays the same when updating an existing deployment. If you create a new deployment instead, update `RSVP_ENDPOINT` in `script.js` with its new `/exec` URL before publishing the invitation.
 
 The public web app accepts RSVP submissions but does not expose the Sheet itself. The browser cannot read Google's response, so confirm the first test submission appears in the Sheet.
