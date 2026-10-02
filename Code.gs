@@ -40,16 +40,40 @@ function doPost(event) {
 
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
     const sheet = spreadsheet.getSheetByName(RSVP_SHEET_NAME) || spreadsheet.insertSheet(RSVP_SHEET_NAME);
+    const expectedHeaders = ["Submitted at", "Name", "Mobile", "Attendance", "Guests", "Dietary notes"];
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(["Submitted at", "Name", "Mobile", "Attendance", "Guests", "Dietary notes"]);
+      sheet.appendRow(expectedHeaders);
+    } else {
+      ensureHeaders(sheet, expectedHeaders);
     }
-    sheet.appendRow([new Date(), name, mobile, attendance, guests, dietary]);
+    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    const row = headers.map(h => {
+      if (h === "Submitted at") return new Date();
+      if (h === "Name") return name;
+      if (h === "Mobile") return mobile;
+      if (h === "Attendance") return attendance;
+      if (h === "Guests") return guests;
+      if (h === "Dietary notes") return dietary;
+      return "";
+    });
+    sheet.appendRow(row);
 
     return jsonResponse({ success: true });
   } catch (error) {
     console.error(error);
     return jsonResponse({ success: false, error: String(error.message || error) });
   }
+}
+
+function ensureHeaders(sheet, expectedHeaders) {
+  const existing = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  expectedHeaders.forEach((header, i) => {
+    if (!existing.includes(header)) {
+      const col = existing.length + 1;
+      sheet.getRange(1, col).setValue(header);
+      existing.push(header);
+    }
+  });
 }
 
 function cleanCell(value, maxLength) {
