@@ -165,6 +165,7 @@ document.querySelector("#rsvpForm").addEventListener("submit", async (event) => 
   const form = new FormData(formElement);
   const rsvp = {
     name: form.get("name").trim(),
+    mobile: form.get("mobile").trim(),
     attendance: form.get("attendance"),
     guests: form.get("guests"),
     dietary: form.get("dietary").trim(),

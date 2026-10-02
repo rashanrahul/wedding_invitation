@@ -141,6 +141,8 @@
           <form class="rsvp-form" id="rsvpForm">
             <label class="field-label" for="guestName" data-i18n="yourName">YOUR NAME</label>
             <input id="guestName" name="name" autocomplete="name" placeholder="As it appears on your invitation" data-i18n-placeholder="namePlaceholder" required>
+            <label class="field-label" for="mobileNumber">MOBILE NUMBER</label>
+            <input id="mobileNumber" name="mobile" type="tel" autocomplete="tel" placeholder="Enter Your Mobile Number" inputmode="tel" pattern="[0-9+\-\s]{9,15}" required>
             <fieldset><legend data-i18n="willAttend">WILL YOU BE THERE?</legend><div class="choice-row"><label class="choice"><input type="radio" name="attendance" value="joyfully accepts" required><span data-i18n="accepts">HAPPILY ACCEPTS</span></label><label class="choice"><input type="radio" name="attendance" value="regretfully declines"><span data-i18n="declines">REGRETFULLY DECLINES</span></label></div></fieldset>
             <label class="field-label" for="guestCount" data-i18n="guestCountLabel">NUMBER OF GUESTS</label>
             <select id="guestCount" name="guests"><option value="1" data-i18n="justMe">Just me</option><option value="2" data-i18n="twoGuests">Two guests</option></select>

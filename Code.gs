@@ -22,12 +22,17 @@ function doPost(event) {
 
     const rsvp = submission;
     const name = cleanCell(rsvp.name, 150);
+    const mobile = cleanCell(rsvp.mobile, 30);
     const attendance = String(rsvp.attendance || "");
     const guests = Number(rsvp.guests);
     const dietary = cleanCell(rsvp.dietary, 500);
 
     if (!name || !["joyfully accepts", "regretfully declines"].includes(attendance)) {
       throw new Error("A name and valid attendance selection are required.");
+    }
+    
+    if (!mobile) {
+      throw new Error("Mobile number is required.");
     }
     if (![1, 2].includes(guests)) {
       throw new Error("Guest count must be 1 or 2.");
@@ -36,9 +41,9 @@ function doPost(event) {
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
     const sheet = spreadsheet.getSheetByName(RSVP_SHEET_NAME) || spreadsheet.insertSheet(RSVP_SHEET_NAME);
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(["Submitted at", "Name", "Attendance", "Guests", "Dietary notes"]);
+      sheet.appendRow(["Submitted at", "Name", "Mobile", "Attendance", "Guests", "Dietary notes"]);
     }
-    sheet.appendRow([new Date(), name, attendance, guests, dietary]);
+    sheet.appendRow([new Date(), name, mobile, attendance, guests, dietary]);
 
     return jsonResponse({ success: true });
   } catch (error) {
